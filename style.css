@@ -1,0 +1,4 @@
+body { font-family: sans-serif; padding: 2em; background: #f4f4f4; }
+#editor { border: 1px solid #ccc; height: 500px; }
+button { padding: 0.5em 1em; margin-top: 1em; }
+

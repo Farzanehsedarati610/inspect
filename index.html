@@ -12,6 +12,32 @@
   <script src="editor.js"></script>
   <script src="push.js"></script>
   <script src="config.js"></script>
+<div id="editor"></div>
+<button onclick="publishHtml()">Publish</button>
+<script>
+  const editor = CodeMirror(document.getElementById("editor"), {
+    value: "<!-- Type your HTML here -->\n<h1>Hello World</h1>",
+    mode: "htmlmixed",
+    lineNumbers: true
+  });
+
+  async function publishHtml() {
+    const html = editor.getValue();
+    const encoded = btoa(unescape(encodeURIComponent(html)));
+
+    await fetch("https://api.github.com/repos/YOUR_USERNAME/YOUR_REPO/contents/index.html", {
+      method: "PUT",
+      headers: {
+        "Authorization": "token YOUR_GITHUB_PAT",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: "Update from browser editor",
+        content: encoded,
+        sha: "LATEST_SHA" // Optional: fetch first via GitHub API
+      })
+    });
+    alert
 </body>
 </html>
 
